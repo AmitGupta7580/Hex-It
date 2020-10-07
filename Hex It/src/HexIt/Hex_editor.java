@@ -22,7 +22,6 @@ public class Hex_editor extends javax.swing.JFrame {
     /**
      * Creates new form Hex_editor
      */
-    private int TabCount = 1;
     public Hex_editor() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -37,12 +36,13 @@ public class Hex_editor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         ConvertText = new javax.swing.JTextField();
         From = new javax.swing.JComboBox<>();
         Swap = new javax.swing.JButton();
         To = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        Convertbtn = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         InputFeild = new javax.swing.JTextPane();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -50,8 +50,42 @@ public class Hex_editor extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         MainHexSpace = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        hexTextArea = new javax.swing.JTextArea();
+        first = new javax.swing.JTextField();
+        seconf = new javax.swing.JTextField();
+        Third = new javax.swing.JTextField();
+        fourth = new javax.swing.JTextField();
+        seconf1 = new javax.swing.JTextField();
+        seconf2 = new javax.swing.JTextField();
+        seconf3 = new javax.swing.JTextField();
+        seconf4 = new javax.swing.JTextField();
+        seconf5 = new javax.swing.JTextField();
+        seconf6 = new javax.swing.JTextField();
+        seconf7 = new javax.swing.JTextField();
+        seconf8 = new javax.swing.JTextField();
+        seconf9 = new javax.swing.JTextField();
+        seconf10 = new javax.swing.JTextField();
+        seconf11 = new javax.swing.JTextField();
+        seconf12 = new javax.swing.JTextField();
+        seconf13 = new javax.swing.JTextField();
+        seconf14 = new javax.swing.JTextField();
+        seconf15 = new javax.swing.JTextField();
+        seconf16 = new javax.swing.JTextField();
+        seconf17 = new javax.swing.JTextField();
+        seconf18 = new javax.swing.JTextField();
+        seconf19 = new javax.swing.JTextField();
+        seconf20 = new javax.swing.JTextField();
+        seconf21 = new javax.swing.JTextField();
+        seconf22 = new javax.swing.JTextField();
+        seconf23 = new javax.swing.JTextField();
+        seconf24 = new javax.swing.JTextField();
+        seconf25 = new javax.swing.JTextField();
+        seconf26 = new javax.swing.JTextField();
+        seconf27 = new javax.swing.JTextField();
+        seconf28 = new javax.swing.JTextField();
+        seconf29 = new javax.swing.JTextField();
+        seconf30 = new javax.swing.JTextField();
+        seconf31 = new javax.swing.JTextField();
+        seconf32 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -70,6 +104,17 @@ public class Hex_editor extends javax.swing.JFrame {
         FileOption = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         EditOption = new javax.swing.JMenu();
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hex It");
@@ -95,7 +140,7 @@ public class Hex_editor extends javax.swing.JFrame {
 
         From.setBackground(new java.awt.Color(153, 255, 153));
         From.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        From.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hexadecimal", "Decimal" }));
+        From.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hexadecimal", "Decimal", "ASCII" }));
         From.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FromActionPerformed(evt);
@@ -120,12 +165,16 @@ public class Hex_editor extends javax.swing.JFrame {
 
         To.setBackground(new java.awt.Color(153, 255, 153));
         To.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        To.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hexadecimal", "Decimal" }));
-        To.setSelectedIndex(1);
+        To.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hexadecimal", "Decimal", "ASCII" }));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 102));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton1.setText("Convert");
+        Convertbtn.setBackground(new java.awt.Color(255, 255, 102));
+        Convertbtn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Convertbtn.setText("Convert");
+        Convertbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ConvertbtnMouseClicked(evt);
+            }
+        });
 
         InputFeild.setBackground(new java.awt.Color(255, 255, 204));
         InputFeild.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -156,7 +205,7 @@ public class Hex_editor extends javax.swing.JFrame {
                 .addGap(41, 41, 41))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Convertbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(175, 175, 175))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -178,7 +227,7 @@ public class Hex_editor extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Convertbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -186,30 +235,328 @@ public class Hex_editor extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
-        MainHexSpace.setBackground(new java.awt.Color(0, 0, 0));
+        MainHexSpace.setBackground(new java.awt.Color(255, 255, 255));
 
-        hexTextArea.setColumns(20);
-        hexTextArea.setRows(5);
-        jScrollPane3.setViewportView(hexTextArea);
+        jPanel3.setAutoscrolls(true);
+
+        first.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        first.setText("DD");
+        first.setMinimumSize(new java.awt.Dimension(15, 15));
+        first.setPreferredSize(new java.awt.Dimension(15, 15));
+
+        seconf.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf.setText("DD");
+        seconf.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        Third.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        Third.setText("DD");
+        Third.setMinimumSize(new java.awt.Dimension(20, 15));
+        Third.setPreferredSize(new java.awt.Dimension(20, 15));
+        Third.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ThirdActionPerformed(evt);
+            }
+        });
+
+        fourth.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        fourth.setText("DD");
+        fourth.setMinimumSize(new java.awt.Dimension(20, 15));
+        fourth.setPreferredSize(new java.awt.Dimension(20, 15));
+        fourth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fourthActionPerformed(evt);
+            }
+        });
+
+        seconf1.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf1.setText("DD");
+        seconf1.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf1.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf2.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf2.setText("DD");
+        seconf2.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf2.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf3.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf3.setText("DD");
+        seconf3.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf3.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf4.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf4.setText("DD");
+        seconf4.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf4.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf5.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf5.setText("DD");
+        seconf5.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf5.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf6.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf6.setText("DD");
+        seconf6.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf6.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf7.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf7.setText("DD");
+        seconf7.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf7.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf8.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf8.setText("DD");
+        seconf8.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf8.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf9.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf9.setText("DD");
+        seconf9.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf9.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf10.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf10.setText("DD");
+        seconf10.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf10.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf11.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf11.setText("DD");
+        seconf11.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf11.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf12.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf12.setText("DD");
+        seconf12.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf12.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf13.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf13.setText("DD");
+        seconf13.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf13.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf14.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf14.setText("DD");
+        seconf14.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf14.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf15.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf15.setText("DD");
+        seconf15.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf15.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf16.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf16.setText("DD");
+        seconf16.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf16.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf17.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf17.setText("DD");
+        seconf17.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf17.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf18.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf18.setText("DD");
+        seconf18.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf18.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf19.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf19.setText("DD");
+        seconf19.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf19.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf20.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf20.setText("DD");
+        seconf20.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf20.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf21.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf21.setText("DD");
+        seconf21.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf21.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf22.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf22.setText("DD");
+        seconf22.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf22.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf23.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf23.setText("DD");
+        seconf23.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf23.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf24.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf24.setText("DD");
+        seconf24.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf24.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf25.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf25.setText("DD");
+        seconf25.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf25.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf26.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf26.setText("DD");
+        seconf26.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf26.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf27.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf27.setText("DD");
+        seconf27.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf27.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf28.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf28.setText("DD");
+        seconf28.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf28.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf29.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf29.setText("DD");
+        seconf29.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf29.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf30.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf30.setText("DD");
+        seconf30.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf30.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf31.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf31.setText("DD");
+        seconf31.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf31.setPreferredSize(new java.awt.Dimension(20, 15));
+
+        seconf32.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        seconf32.setText("DD");
+        seconf32.setMinimumSize(new java.awt.Dimension(20, 15));
+        seconf32.setPreferredSize(new java.awt.Dimension(20, 15));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(31, 31, 31)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(seconf32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(first, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Third, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(fourth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(seconf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seconf15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(413, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(first, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seconf15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Third, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fourth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seconf2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seconf16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seconf31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(seconf32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        MainHexSpace.addTab("tab1", jPanel3);
+        MainHexSpace.addTab("tab2", jPanel3);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -288,10 +635,8 @@ public class Hex_editor extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(99, 99, 99)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -321,8 +666,8 @@ public class Hex_editor extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -375,10 +720,9 @@ public class Hex_editor extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,7 +755,7 @@ public class Hex_editor extends javax.swing.JFrame {
         From.setSelectedIndex(To.getSelectedIndex());
         To.setSelectedIndex(temp);
     }//GEN-LAST:event_SwapMouseClicked
-
+        // Main Function
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         System.out.println("File is opening");
@@ -428,16 +772,14 @@ public class Hex_editor extends javax.swing.JFrame {
                 while (Tokens.hasMoreTokens()) 
                     File_Name = Tokens.nextToken();
                 System.out.println(File_Name);
-                //System.out.println(File_Name[File_Name.length-1]);
-                File file=new File(Path);
-                FileInputStream fis=new FileInputStream(file);     //opens a connection to an actual file  
-                System.out.println("file content: ");  
-                int t=0;
-                String Content = "";
-                while((t=fis.read())!=-1){  
-                    Content += (char)t;     //prints the content of the file  
-                } 
-                addPanelToTabbedPanel(File_Name);
+                if(this.TabCount == 0){
+                    //this.MainHexSpace.removeAll();
+                    this.TabCount += 1;
+                }
+                FileTabs Tab = new FileTabs();
+                Tab.setContent(Path);
+                this.MainHexSpace.addTab(File_Name, Tab.getPanel());
+                this.MainHexSpace.setSelectedComponent(Tab.getPanel());
                 //MainHexSpace.addTab('', jMenu1);
                 //Output.setText(Content);
             } 
@@ -450,8 +792,6 @@ public class Hex_editor extends javax.swing.JFrame {
 
     private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
         // TODO add your handling code here:
-        // open a file ;
-        System.out.println("File is Opening");
     }//GEN-LAST:event_jMenuItem1MouseClicked
 
     private void SwapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SwapActionPerformed
@@ -461,49 +801,75 @@ public class Hex_editor extends javax.swing.JFrame {
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
-    
+        // Converter
+    private void ConvertbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConvertbtnMouseClicked
+        // TODO add your handling code here:
+        String from = this.From.getItemAt(From.getSelectedIndex());
+        String to = this.To.getItemAt(To.getSelectedIndex());
+        String input = this.InputFeild.getText();
+        if(input!=""){
+            if(from=="Hexadecimal"&&to=="Decimal"){
+                if(validInput("Hex-Dec", input)){
+                    String output = "helllo";
+                    this.OutputFeild.setText(output);
+                }
+                else{
+                    this.OutputFeild.setText("==========    Invalid Input    ==========");
+                }
+            }
+            else if(from=="Hexadecimal"&&to=="ASCII"){
+                if(validInput("Hex-Str", input)){
+                    byte[] castedinput = input.getBytes();
+                    String output = hexToString(castedinput);
+                    this.OutputFeild.setText(output);
+                }
+                else{
+                    this.OutputFeild.setText("==========    Invalid Input    ==========");
+                }
+            }
+        }
+        else{
+            this.OutputFeild.setText("==========    Invalid Input    ==========");
+        }
+    }//GEN-LAST:event_ConvertbtnMouseClicked
+
+    private void fourthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fourthActionPerformed
+
+    private void ThirdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThirdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ThirdActionPerformed
+    private String hexToString(byte[] output) {
+        char hexDigit[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                                    'A', 'B', 'C', 'D', 'E', 'F' };
+        StringBuffer buf = new StringBuffer();
+        for (int j = 0; j < output.length; j++) {
+            buf.append(hexDigit[(output[j] >> 4) & 0x0f]);
+            buf.append(hexDigit[output[j] & 0x0f]);
+        }
+        return buf.toString();
+
+    }
     private boolean validInput(String type, String Text){
-        if( type=="Hex" ){
+        if( type=="Hex-Dec" ){
             if ( Text.matches("-?[0-9a-fA-F]+") ){
                 return true;
             }
             return false;
         }
-        else if( type=="Int" ){
-            
+        else if( type=="Hex-Str" ){
+            return true;
         }
         return false;
     }
-    
-    private void addPanelToTabbedPanel(String Name){
-        javax.swing.JTextArea HexText = new javax.swing.JTextArea();
-        javax.swing.JPanel jPanel4 = new javax.swing.JPanel();
-        javax.swing.JScrollPane jScrollPane4 = new javax.swing.JScrollPane();;
-        jScrollPane4.setViewportView(HexText);
-        
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        
-    }
+    private int TabCount = 0;
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ConvertText;
+    private javax.swing.JButton Convertbtn;
     private javax.swing.JMenu EditOption;
     private javax.swing.JMenu FileOption;
     private javax.swing.JComboBox<String> From;
@@ -511,10 +877,11 @@ public class Hex_editor extends javax.swing.JFrame {
     private javax.swing.JTabbedPane MainHexSpace;
     private javax.swing.JTextPane OutputFeild;
     private javax.swing.JButton Swap;
+    private javax.swing.JTextField Third;
     private javax.swing.JComboBox<String> To;
     private javax.swing.JMenuBar TopMenuBar;
-    private javax.swing.JTextArea hexTextArea;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField first;
+    private javax.swing.JTextField fourth;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -522,9 +889,9 @@ public class Hex_editor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
@@ -536,5 +903,38 @@ public class Hex_editor extends javax.swing.JFrame {
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane2;
     private javax.swing.JTextPane jTextPane3;
+    private javax.swing.JTextField seconf;
+    private javax.swing.JTextField seconf1;
+    private javax.swing.JTextField seconf10;
+    private javax.swing.JTextField seconf11;
+    private javax.swing.JTextField seconf12;
+    private javax.swing.JTextField seconf13;
+    private javax.swing.JTextField seconf14;
+    private javax.swing.JTextField seconf15;
+    private javax.swing.JTextField seconf16;
+    private javax.swing.JTextField seconf17;
+    private javax.swing.JTextField seconf18;
+    private javax.swing.JTextField seconf19;
+    private javax.swing.JTextField seconf2;
+    private javax.swing.JTextField seconf20;
+    private javax.swing.JTextField seconf21;
+    private javax.swing.JTextField seconf22;
+    private javax.swing.JTextField seconf23;
+    private javax.swing.JTextField seconf24;
+    private javax.swing.JTextField seconf25;
+    private javax.swing.JTextField seconf26;
+    private javax.swing.JTextField seconf27;
+    private javax.swing.JTextField seconf28;
+    private javax.swing.JTextField seconf29;
+    private javax.swing.JTextField seconf3;
+    private javax.swing.JTextField seconf30;
+    private javax.swing.JTextField seconf31;
+    private javax.swing.JTextField seconf32;
+    private javax.swing.JTextField seconf4;
+    private javax.swing.JTextField seconf5;
+    private javax.swing.JTextField seconf6;
+    private javax.swing.JTextField seconf7;
+    private javax.swing.JTextField seconf8;
+    private javax.swing.JTextField seconf9;
     // End of variables declaration//GEN-END:variables
 }
