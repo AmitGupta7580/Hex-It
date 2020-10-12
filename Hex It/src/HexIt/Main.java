@@ -10,9 +10,9 @@ package HexIt;
  * @author udit gupta
  */
 
-class Front{
+class Main{
     public static void main(String args[]) {
-        Hex_editor Ui = new Hex_editor();
+        MainPage Ui = new MainPage();
         Ui.setVisible(true);
         
     }
