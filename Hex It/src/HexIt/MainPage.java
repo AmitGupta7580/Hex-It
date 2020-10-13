@@ -19,9 +19,156 @@ public class MainPage extends javax.swing.JFrame {
      * Creates new form MainPage
      */
     FileJPlane file;
+    String FrConv="Hex";
+    String ToConv="ASCII";
     public MainPage() {
         initComponents();
     }
+    
+    public static String asciitohex(String str)
+    {
+        int i;
+        String res="";
+        int n=str.length();
+        for(i=0;i<(n);i++){
+            res=res+ Integer.toHexString((int)str.charAt(i))+" ";
+        }
+        return res;
+    }
+    private static String hexToAscii(String hexStr) {
+    StringBuilder output = new StringBuilder("");
+    
+    for (int i = 0; i < hexStr.length(); i += 2) {
+        while(hexStr.charAt(i)==' '){
+            i+=1;
+            if(i>=hexStr.length()){
+                break;
+            }
+        }
+        if(i>=hexStr.length()){
+            continue;
+        }
+        int end =i+2;
+        if(end>hexStr.length()){
+            end=hexStr.length();
+        }
+        String str = hexStr.substring(i,end);
+        System.out.print(str+"\n");
+        output.append((char) Integer.parseInt(str, 16));
+    }
+    
+    return output.toString();
+}
+    private static String decimaltoascii(String str){
+        StringBuilder output = new StringBuilder("");
+         StringTokenizer st1 = 
+             new StringTokenizer(str);
+         while(st1.hasMoreTokens()){
+             output.append((char) Integer.parseInt(st1.nextToken()));
+         }
+         return output.toString();
+    }
+    private static String decimaltohex(String str){
+        String out=decimaltoascii(str);
+        return asciitohex(out);
+    }
+    private static String hextodecimal(String str){
+        String res="";
+         StringTokenizer st1 = 
+             new StringTokenizer(str);
+         while(st1.hasMoreTokens()){
+             res=res+(Integer.parseInt(st1.nextToken(),16))+" ";
+         }
+         return res;
+        
+    }
+    private static String asciitodecimal(String str){
+        String out=asciitohex(str);
+        out=hextodecimal(out);
+        return out;
+    }
+    private static String binarytodecimal(String str){
+        String res="";
+         StringTokenizer st1 = 
+             new StringTokenizer(str);
+         while(st1.hasMoreTokens()){
+             res=res+(Integer.parseInt(st1.nextToken(),2))+" ";
+         }
+         return res;
+    }
+    private static String decimaltobinary(String str){
+        String res="";
+         StringTokenizer st1 = 
+             new StringTokenizer(str);
+         while(st1.hasMoreTokens()){
+             res=res+Integer.toBinaryString(Integer.parseInt(st1.nextToken(),16))+" ";
+         }
+         return res;
+    }
+    private static String binarytoascii(String str){
+        String out=binarytodecimal(str);
+        out=decimaltoascii(out);
+        return out;
+    }
+    private static String binarytohex(String str){
+        String out=binarytodecimal(str);
+        out=decimaltohex(out);
+        return out;
+    }
+    private static String asciitobinary(String str){
+        String out=asciitodecimal(str);
+        out=decimaltobinary(out);
+        return out;
+    }
+    private static String hextobinary(String str){
+        String out=hextodecimal(str);
+        out=decimaltobinary(out);
+        return out;
+    }
+    public void Convert(){
+    String input,output="";
+        input=jTextArea1.getText();
+        if(ToConv=="ASCII" && FrConv=="Hex"){
+            output=hexToAscii(input);
+        }
+        else if(ToConv=="Hex" && FrConv=="ASCII"){
+            output=asciitohex(input);
+        }
+        else if(ToConv=="ASCII" && FrConv=="Decimal"){
+            output=decimaltoascii(input);
+        }
+        else if(ToConv=="Hex" && FrConv=="Decimal"){
+            output=decimaltohex(input);
+        }
+        else if(ToConv=="Decimal" && FrConv=="ASCII"){
+            output=asciitodecimal(input);
+        }
+        else if(ToConv=="Binary" && FrConv=="Decimal"){
+            output=decimaltobinary(input);
+        }
+        else if(ToConv=="Binary" && FrConv=="Hex"){
+            output=hextobinary(input);
+        }
+        else if(ToConv=="Binary" && FrConv=="ASCII"){
+            output=asciitobinary(input);
+        }
+        else if(ToConv=="Decimal" && FrConv=="Binary"){
+            output=binarytodecimal(input);
+        }
+        else if(ToConv=="Hex" && FrConv=="Binary"){
+            output=binarytohex(input);
+        }else if(ToConv=="ASCII" && FrConv=="Binary"){
+            output=binarytoascii(input);
+        }
+        else if(ToConv=="Decimal" && FrConv=="Hex"){
+            output=hextodecimal(input);
+        }
+        
+        else if(ToConv==FrConv){
+            output=input;
+        }
+        jTextArea2.setText(output);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -422,10 +569,16 @@ public class MainPage extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
+        jTextArea2.setFocusable(false);
         jScrollPane2.setViewportView(jTextArea2);
 
         jLabel17.setText("   Output:");
@@ -438,6 +591,11 @@ public class MainPage extends javax.swing.JFrame {
         });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ASCII", "Decimal", "Hex", "Binary" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Swap");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -657,10 +815,18 @@ public class MainPage extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+        FrConv=(String)jComboBox1.getSelectedItem();
+        Convert();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        jTextArea1.setText(jTextArea2.getText());
+        FrConv=(String)jComboBox2.getSelectedItem();
+        ToConv=(String)jComboBox1.getSelectedItem();
+        jComboBox1.setSelectedItem(FrConv);
+        jComboBox2.setSelectedItem(ToConv);
+        Convert();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
@@ -697,6 +863,16 @@ public class MainPage extends javax.swing.JFrame {
             e.printStackTrace();  
         }    
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
+        Convert();
+    }//GEN-LAST:event_jTextArea1KeyReleased
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+        ToConv=(String)jComboBox2.getSelectedItem();
+        Convert();
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
