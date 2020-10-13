@@ -3,9 +3,13 @@ package HexIt;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableCellRenderer;
 
 public class Table extends JTable {
@@ -16,10 +20,5 @@ public class Table extends JTable {
             }
             else break;
         }
-    }
-    public Component prepareRenderer( TableCellRenderer renderer, int row, int column) {
-        JComponent jc = (JComponent)super.prepareRenderer(renderer, row, column);
-        jc.setBorder(BorderFactory.createLineBorder(Color.white, 4));
-        return jc;
     }
 }
