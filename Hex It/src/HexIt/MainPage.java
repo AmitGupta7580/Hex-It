@@ -667,6 +667,11 @@ public class MainPage extends javax.swing.JFrame {
         jLabel19.setText("Operator");
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hex", "Decimal", "ASCII", "Binary" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Add", "Sub", "Multiply", "Divide", "Right Shift", "Left Shift", "Xor", "Nor" }));
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
@@ -873,6 +878,10 @@ public class MainPage extends javax.swing.JFrame {
         ToConv=(String)jComboBox2.getSelectedItem();
         Convert();
     }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
     
     public void setCurrentAddressNormal(String address){
         jTextField6.setText(address);
@@ -880,8 +889,8 @@ public class MainPage extends javax.swing.JFrame {
     public void setCurrentAddressHex(String address){
         jTextField8.setText(address);
     }
-    public void setCurrentAddressAscii(char address){
-        jTextField7.setText(String.valueOf(address));
+    public void setCurrentAddressAscii(String address){
+        jTextField7.setText(address);
     }
     public void setCurrentAddressDec(String address){
         jTextField9.setText(address);
@@ -889,6 +898,32 @@ public class MainPage extends javax.swing.JFrame {
     public void setCurrentAddressBin(String address){
         jTextField10.setText(address);
     }
+    public void flbytesendconverter(String input,int type){
+        if(type==0){
+            jComboBox1.setSelectedItem("Hex");
+            jComboBox2.setSelectedItem("ASCII");
+            jTextArea1.setText(input);
+            Convert();
+        }
+        else{
+            jComboBox2.setSelectedItem("Hex");
+            jComboBox1.setSelectedItem("ASCII");
+            jTextArea1.setText(input);
+            Convert();
+        }
+    }
+    public void flbytesendcalculater(String input,int type){
+        if(type==0){
+            jTextArea3.setText(input);
+            jComboBox3.setSelectedItem("Hex");
+        }
+        else{
+            jTextArea3.setText(input);
+            jComboBox3.setSelectedItem("ASCII");
+        }
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

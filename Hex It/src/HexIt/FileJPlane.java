@@ -87,7 +87,6 @@ public final class FileJPlane extends javax.swing.JFrame {
                     j.setBackground(new java.awt.Color(204, 204, 255));
                     con[i+1] = j;
                     line[i] = (readByte >= 33 && readByte <= 126) ? (char) readByte : (char) 46;
-                    
                 }
                 csz = readStatus;
                 for (int i=readStatus; i<16 ; i++) {
@@ -110,7 +109,7 @@ public final class FileJPlane extends javax.swing.JFrame {
         class TextBoxRender implements TableCellRenderer {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int r, int c) {
-                if(r>=sz-1&&c>=csz){
+                if((r>=sz-1&&c>=csz)&&(c!=17)){
                     return null;
                 }
                 JTextArea lb1 = (JTextArea) _contentorg[r][c];
@@ -183,7 +182,7 @@ public final class FileJPlane extends javax.swing.JFrame {
         for (int i = 0; i < tb.getColumnCount(); i++) {
             tb.setDefaultEditor(tb.getColumnClass(i), doubleclick);
         } 
-        mouseEvent m = new mouseEvent(tb, _contentorg, ui);
+        mouseEvent m = new mouseEvent(tb, _contentorg, ui,sz,csz);
         tb.addMouseListener(m);
     }
     
