@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package HexIt;
-
+import java.lang.Math;
 import java.util.StringTokenizer;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
@@ -70,15 +70,22 @@ public class MainPage extends javax.swing.JFrame {
          return output.toString();
     }
     private static String decimaltohex(String str){
-        String out=decimaltoascii(str);
-        return asciitohex(out);
+        String res="";
+        StringTokenizer st = new StringTokenizer(str);
+while (st.hasMoreTokens()) {
+
+        String out=Integer.toHexString(Integer.parseInt(st.nextToken()));
+        res=res+out+" ";
+    }
+return res;
     }
     private static String hextodecimal(String str){
         String res="";
          StringTokenizer st1 = 
              new StringTokenizer(str);
          while(st1.hasMoreTokens()){
-             res=res+(Integer.parseInt(st1.nextToken(),16))+" ";
+             
+             res=res+Integer.toString(Integer.parseInt(st1.nextToken(),16))+" ";
          }
          return res;
         
@@ -102,7 +109,7 @@ public class MainPage extends javax.swing.JFrame {
          StringTokenizer st1 = 
              new StringTokenizer(str);
          while(st1.hasMoreTokens()){
-             res=res+Integer.toBinaryString(Integer.parseInt(st1.nextToken(),16))+" ";
+             res=res+Integer.toBinaryString(Integer.parseInt(st1.nextToken()))+" ";
          }
          return res;
     }
@@ -125,6 +132,16 @@ public class MainPage extends javax.swing.JFrame {
         String out=hextodecimal(str);
         out=decimaltobinary(out);
         return out;
+    }
+     private static String hextodecimal1(String str){
+        String res="";
+         StringTokenizer st1 = 
+             new StringTokenizer(str);
+         while(st1.hasMoreTokens()){
+             res=res+(Integer.parseInt(st1.nextToken(),16));
+         }
+         return res;
+        
     }
     public void Convert(){
     String input,output="";
@@ -170,7 +187,146 @@ public class MainPage extends javax.swing.JFrame {
         }
         jTextArea2.setText(output);
 }
+    public long calculate(long number1,long number2)
+    {
+        String operation=(String)jComboBox4.getSelectedItem();
+        if(operation.equals("Add"))
+            return number1+number2;
+        else if(operation.equals("Sub"))
+            return number1-number2;
+         else if(operation.equals("Multiply"))
+             
+            return number1*number2;
+        else if(operation.equals("Divide"))
+            return number1/number2;
+        else if(operation.equals("Right Shift"))
+            return number1>>number2;
+        else if(operation.equals("Left Shift"))
+            return number1<<number2;
+        else if(operation.equals("Xor"))
+            return number1^number2;
 
+        else return -1;
+        
+    }
+    
+   
+            
+     public void calculateConv(){
+    
+    String type=(String)jComboBox3.getSelectedItem();
+        String text1=jTextArea3.getText();
+        String text2=jTextArea4.getText();
+        if(type.equals("ASCII") ){
+            text1=asciitodecimal(text1);
+            text2=asciitodecimal(text2);
+            long number1 = Integer.parseInt(text1);
+        long number2 = Integer.parseInt(text2);
+        long result=calculate(number1,number2);
+         jTextArea5.setText(String.valueOf(result));
+         jTextArea5.setText(decimaltoascii(String.valueOf(result)));
+            
+        }
+        else if(type.equals("Hex")){
+           text1=hextodecimal1(text1);
+            text2=hextodecimal1(text2);
+            long number1 = Long.parseLong(text1);
+        long number2 = Long.parseLong(text2);
+        long result=calculate(number1,number2);
+        
+        
+     
+          jTextArea5.setText(decimaltohex(String.valueOf(result)));
+        }
+        else if(type.equals("Binary") ){
+            text1=binarytodecimal(text1);
+            text2=binarytodecimal(text2);
+               
+                text1=text1.substring(0,text1.length()-1);
+                    text2=text2.substring(0,text2.length()-1);
+         
+           long number1 = Long.parseLong(text1);
+        long number2 = Long.parseLong(text2);
+             long result=calculate(number1,number2);
+                  jTextArea5.setText(decimaltobinary(String.valueOf(result)));
+                    
+        }
+        
+     else if(type.equals("Decimal") ){
+            
+             long number1 = Integer.parseInt(text1);
+        long number2 = Integer.parseInt(text2);
+                    long result=calculate(number1,number2);
+                     jTextArea5.setText(String.valueOf(result));
+
+        }
+        
+        
+        
+}
+boolean check(String text)
+{String type=(String)jComboBox3.getSelectedItem();
+
+int len=text.length();
+text=text.toUpperCase();
+if(type=="Hex")
+{
+    for(int i=0;i<len;i++)
+    {
+        char ch= text.charAt(i);
+        if(!Character.isDigit(ch))
+        {
+            if(Character.isLetter(ch))
+            {
+                if((ch=='A')||(ch=='B')||(ch=='C')||(ch=='D')||(ch=='E')||(ch=='F'))
+                {
+                    continue;
+                }
+                else
+                {
+                        return false;
+                     
+                }
+            }
+             else
+                {
+                        return false;
+                }
+        }
+        
+        }
+    return true;
+    }
+else if(type=="Binary")
+{
+
+
+    for(int i=0;i<len;i++)
+    {
+        char ch= text.charAt(i);
+        if(!((ch=='0')||(ch=='1')))
+        {return false;}
+            else
+                    continue;
+    }
+return true;}
+
+else if(type.equals("Decimal"))
+{
+
+
+    for(int i=0;i<len;i++)
+    {
+        char ch= text.charAt(i);
+        if(!Character.isDigit(ch))
+          {return false;
+        }
+            else
+                    continue;
+    } 
+return true;}
+else
+    return false;}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -652,10 +808,20 @@ public class MainPage extends javax.swing.JFrame {
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
+        jTextArea3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea3KeyReleased(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTextArea3);
 
         jTextArea4.setColumns(20);
         jTextArea4.setRows(5);
+        jTextArea4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea4KeyReleased(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTextArea4);
 
         jTextArea5.setColumns(20);
@@ -674,6 +840,11 @@ public class MainPage extends javax.swing.JFrame {
         });
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Add", "Sub", "Multiply", "Divide", "Right Shift", "Left Shift", "Xor", "Nor" }));
+        jComboBox4.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox4ItemStateChanged(evt);
+            }
+        });
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox4ActionPerformed(evt);
@@ -681,6 +852,11 @@ public class MainPage extends javax.swing.JFrame {
         });
 
         jButton5.setText("Convert");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -739,7 +915,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setText("Open File");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -835,7 +1011,8 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
-        // TODO add your handling code here:
+  
+           
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -872,7 +1049,7 @@ public class MainPage extends javax.swing.JFrame {
     private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
         Convert();
     }//GEN-LAST:event_jTextArea1KeyReleased
-
+    
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
         ToConv=(String)jComboBox2.getSelectedItem();
@@ -882,6 +1059,54 @@ public class MainPage extends javax.swing.JFrame {
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+String text1=jTextArea3.getText();
+if(check(text1))
+{   String text2=jTextArea4.getText();
+if(check(text2))
+{String type=(String)jComboBox4.getSelectedItem();
+        if(type.equals("Nor"))
+        {jTextArea5.setText("-"+jTextArea3.getText());}
+       else
+
+         calculateConv();}
+else
+    jTextArea5.setText("Wrong value input in text area 1");}
+
+else
+    jTextArea5.setText("Wrong value input in text area 1");
+
+        
+     
+         
+        
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextArea3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea3KeyReleased
+String text1=jTextArea3.getText();
+if(check(text1))
+    jTextArea5.setText("");
+else
+    jTextArea5.setText("Wrong value input in text area 1");
+
+    }//GEN-LAST:event_jTextArea3KeyReleased
+
+    private void jComboBox4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox4ItemStateChanged
+      
+    }//GEN-LAST:event_jComboBox4ItemStateChanged
+
+    private void jTextArea4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea4KeyReleased
+String text1=jTextArea4.getText();
+if(check(text1))
+    jTextArea5.setText("");
+else
+    jTextArea5.setText("Wrong value input in text area 1");
+
+                                          
+
+    }//GEN-LAST:event_jTextArea4KeyReleased
     
     public void setCurrentAddressNormal(String address){
         jTextField6.setText(address);
