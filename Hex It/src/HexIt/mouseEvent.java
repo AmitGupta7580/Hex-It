@@ -52,14 +52,16 @@ public class mouseEvent extends MouseAdapter {
             higr2.removeAllHighlights();
         }
         else if(tp==1){
-            for(int i=1;i<=17;i++){
+            int t = rp>=sz-1 ? csz-1 : 17;
+            for(int i=1;i<=t;i++){
                 JTextArea r1 = (JTextArea) content[rp][i];
                 Highlighter higr1 = r1.getHighlighter();
                 higr1.removeAllHighlights();
             }
         }
         else if(tp==2){
-            for(int i=0;i<=17;i++){
+            int t = rp>=sz-1 ? csz-1 : 17;
+            for(int i=0;i<=t;i++){
                 JTextArea r1 = (JTextArea) content[rp][i];
                 Highlighter higr1 = r1.getHighlighter();
                 higr1.removeAllHighlights();
@@ -94,8 +96,8 @@ public class mouseEvent extends MouseAdapter {
         else if(col==17){
             tp = 1;
             rp = row;
-            System.out.println(row);
-            for(int i=1;i<17;i++){
+            int t = row>=sz-1 ? csz : 17;
+            for(int i=1;i<t;i++){
                 JTextArea sp = (JTextArea) content[row][i];
                 Highlighter higsp = sp.getHighlighter();
                 try {
@@ -140,8 +142,8 @@ public class mouseEvent extends MouseAdapter {
         else{
             tp = 2;
             rp = row;
-            System.out.println(row);
-            for(int i=1;i<17;i++){
+            int t = row>=sz-1 ? csz : 17;
+            for(int i=1;i<t;i++){
                 JTextArea sp = (JTextArea) content[row][i];
                 Highlighter higsp = sp.getHighlighter();
                 try {
@@ -209,14 +211,16 @@ public class mouseEvent extends MouseAdapter {
             higr2.removeAllHighlights();
         }
         else if(tp==1){
-            for(int i=1;i<=17;i++){
+            int t = rp>=sz-1 ? csz-1 : 17;
+            for(int i=1;i<=t;i++){
                 JTextArea r1 = (JTextArea) content[rp][i];
                 Highlighter higr1 = r1.getHighlighter();
                 higr1.removeAllHighlights();
             }
         }
         else if(tp==2){
-            for(int i=0;i<=17;i++){
+            int t = rp>=sz-1 ? csz-1 : 17;
+            for(int i=0;i<=t;i++){
                 JTextArea r1 = (JTextArea) content[rp][i];
                 Highlighter higr1 = r1.getHighlighter();
                 higr1.removeAllHighlights();
@@ -251,8 +255,8 @@ public class mouseEvent extends MouseAdapter {
         else if(col==17){
             tp = 1;
             rp = row;
-            System.out.println(row);
-            for(int i=1;i<17;i++){
+            int t = row>=sz-1 ? csz : 17;
+            for(int i=1;i<t;i++){
                 JTextArea sp = (JTextArea) content[row][i];
                 Highlighter higsp = sp.getHighlighter();
                 try {
@@ -297,8 +301,9 @@ public class mouseEvent extends MouseAdapter {
         else{
             tp = 2;
             rp = row;
+            int t = row>=sz-1 ? csz : 17;
             System.out.println(row);
-            for(int i=1;i<17;i++){
+            for(int i=1;i<t;i++){
                 JTextArea sp = (JTextArea) content[row][i];
                 Highlighter higsp = sp.getHighlighter();
                 try {

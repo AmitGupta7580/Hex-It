@@ -15,6 +15,10 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,12 +43,12 @@ public final class FileJPlane extends javax.swing.JFrame {
     
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private String Path;    
+    private String p;    
     private MainPage ui;
     private Table tb = new Table();
     public FileJPlane(String Path, MainPage ui) {
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.Path = Path;
+        this.p = Path;
         this.ui = ui;
         initComponents();
     }
@@ -58,11 +62,17 @@ public final class FileJPlane extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         Object[][] _content = new Object[100000][];
         try {
-            File f = new File(Path);
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(f));
-            byte[] chunk = null;
-            int readStatus = 0;
-            while (true) {
+            File f = new File(p);
+            Path path = Paths.get(p);
+            // byte[] data = Files.readAllBytes(path);     
+            // System.out.println(Integer.toHexString((int) data[0]).toUpperCase() + Integer.toHexString((int) data[1]).toUpperCase());
+            //////////////////////////////////////////////
+            ////////////////////////////////////////////////
+            InputStream is = new FileInputStream(f);
+            int value = 0;
+            StringBuilder sbText = new StringBuilder();
+            while ((value = is.read()) != -1) {
+                int bytesCounter =1;
                 Object[] con = new Object[18];
                 String pad = "";
                 for(int i=0 ; i < 7 -Integer.toHexString(sz).toUpperCase().length();i++) {
@@ -72,44 +82,77 @@ public final class FileJPlane extends javax.swing.JFrame {
                 jp.setFont(new java.awt.Font("Courier New", 0, 14));
                 jp.setBackground(new java.awt.Color(204, 204, 255));
                 con[0] = jp;
-                chunk = new byte[16];
-                readStatus = bis.read(chunk, 0, 16);
-                char[] line = new char[16];
-
-                if (readStatus == -1)
-                    break;
+                JTextArea jin = new JTextArea(String.format("%02X", value));
+                jin.setFont(new java.awt.Font("Courier New", 0, 14));
+                jin.setBackground(new java.awt.Color(204, 204, 255));
+                con[bytesCounter] = jin;
+                if (!Character.isISOControl(value)) {
+                    sbText.append((char)value);
+                }else {
+                    sbText.append(".");
+                }
+                bytesCounter++;
                 
-                for (byte i=0; i < readStatus; i++) {
-                    int readByte = (chunk[i] < 0) ? (-1 * (int) chunk[i]) : chunk[i];
-                    String paddingZero = (readByte < 16) ? "0" : "";
-                    JTextArea j = new JTextArea(paddingZero + Integer.toHexString(readByte).toUpperCase());
+                while ((value = is.read()) != -1) {
+                    //convert to hex value with "X" formatter
+                    JTextArea j = new JTextArea(String.format("%02X", value));
                     j.setFont(new java.awt.Font("Courier New", 0, 14));
                     j.setBackground(new java.awt.Color(204, 204, 255));
-                    con[i+1] = j;
-                    line[i] = (readByte >= 33 && readByte <= 126) ? (char) readByte : (char) 46;
+                    con[bytesCounter] = j;
+
+                    //If the chracater is not convertable, just print a dot symbol "."
+                    if (!Character.isISOControl(value)) {
+                        sbText.append((char)value);
+                    }else {
+                        sbText.append(".");
+                    }
+
+                    //if 16 bytes are read, reset the counter,
+                    //clear the StringBuilder for formatting purpose only.
+                    if(bytesCounter==16){
+                        JTextArea jpt = new JTextArea(sbText.toString());
+                        jpt.setFont(new java.awt.Font("Courier New", 0, 14));
+                        jpt.setBackground(new java.awt.Color(204, 204, 255));
+                        con[17] = jpt;
+                        
+                        sbText.setLength(0);
+                        bytesCounter=0;
+                        break;
+                    }else{
+                        bytesCounter++;
+                    }
                 }
-                csz = readStatus;
-                for (int i=readStatus; i<16 ; i++) {
-                    line[i] = (char) 46;
+                if(bytesCounter!=0){
+                    //add spaces more formatting purpose only
+                    csz = bytesCounter;
+                    for(; bytesCounter<16; bytesCounter++){
+                        JTextArea jpt = new JTextArea(sbText.toString());
+                        jpt.setFont(new java.awt.Font("Courier New", 0, 14));
+                        jpt.setBackground(new java.awt.Color(204, 204, 255));
+                        con[17] = jpt;
+                    }
                 }
-                JTextArea jpt = new JTextArea(new String(line));
-                jpt.setFont(new java.awt.Font("Courier New", 0, 14));
-                jpt.setBackground(new java.awt.Color(204, 204, 255));
-                con[17] = jpt;
-                
                 _content[sz] = con;
                 sz++;
                 
             }
+            //System.out.print(sbResult);
+            is.close();
         } catch (Exception e1) { e1.printStackTrace(); }
+        
         Object[][] _contentorg = new Object[sz][];
         for(int i=0 ;i<sz; i++){
             _contentorg[i] = _content[i];
+            //System.out.println(_content[i][17]);
         }
+        //System.out.println(sz);
+        //System.out.println(csz);
         class TextBoxRender implements TableCellRenderer {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int r, int c) {
-                if((r>=sz-1&&c>=csz)&&(c!=17)){
+                //System.out.println(r);
+                //System.out.println(c);
+                if((r>=sz-1&&c>=csz-1)&&(c!=17)){
                     return null;
                 }
                 JTextArea lb1 = (JTextArea) _contentorg[r][c];
