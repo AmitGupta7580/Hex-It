@@ -45,29 +45,18 @@ public final class FileJPlane extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private String p;    
     private MainPage ui;
-    private Table tb = new Table();
+    public Table tb = new Table();
+    private int sz=0;
+    private int csz = 0;
+    public Object[][] _contentorg;
+    private Object[][] _content = new Object[100000][];
     public FileJPlane(String Path, MainPage ui) {
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.p = Path;
         this.ui = ui;
-        initComponents();
-    }
-    public javax.swing.JPanel getPanel(){
-        return jPanel1;
-    }
-    int sz=0;
-    int csz = 0;
-    public void initComponents(){
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        Object[][] _content = new Object[100000][];
         try {
             File f = new File(p);
             Path path = Paths.get(p);
-            // byte[] data = Files.readAllBytes(path);     
-            // System.out.println(Integer.toHexString((int) data[0]).toUpperCase() + Integer.toHexString((int) data[1]).toUpperCase());
-            //////////////////////////////////////////////
-            ////////////////////////////////////////////////
             InputStream is = new FileInputStream(f);
             int value = 0;
             StringBuilder sbText = new StringBuilder();
@@ -132,34 +121,23 @@ public final class FileJPlane extends javax.swing.JFrame {
                         con[17] = jpt;
                     }
                 }
-                _content[sz] = con;
-                sz++;
-                
+                _content[this.sz] = con;
+                this.sz++;
             }
             //System.out.print(sbResult);
             is.close();
+            
         } catch (Exception e1) { e1.printStackTrace(); }
-        
-        Object[][] _contentorg = new Object[sz][];
-        for(int i=0 ;i<sz; i++){
+        _contentorg = new Object[sz][];
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        for(int i=0 ;i<this.sz; i++){
             _contentorg[i] = _content[i];
             //System.out.println(_content[i][17]);
         }
         //System.out.println(sz);
         //System.out.println(csz);
-        class TextBoxRender implements TableCellRenderer {
-            @Override
-            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int r, int c) {
-                //System.out.println(r);
-                //System.out.println(c);
-                if((r>=sz-1&&c>=csz-1)&&(c!=17)){
-                    return null;
-                }
-                JTextArea lb1 = (JTextArea) _contentorg[r][c];
-                lb1.setBackground(new java.awt.Color(204, 204, 255));
-                return ((Component) lb1);
-            }
-        }
+        
         
         
         tb.setFont(new java.awt.Font("Courier New", 0, 14));
@@ -177,6 +155,7 @@ public final class FileJPlane extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        
         tb.setDefaultRenderer(Object.class, new TextBoxRender());
         //tb.getColumn("ASCII").setCellRenderer(new TextBoxRender(0,0,0));
         tb.setBackground(new java.awt.Color(204, 204, 255));
@@ -229,4 +208,31 @@ public final class FileJPlane extends javax.swing.JFrame {
         tb.addMouseListener(m);
     }
     
+    class TextBoxRender implements TableCellRenderer {
+            @Override
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int r, int c) {
+                //System.out.println(r);
+                //System.out.println(c);
+                if((r>=sz-1&&c>=csz-1)&&(c!=17)){
+                    return null;
+                }
+                JTextArea lb1 = (JTextArea) _contentorg[r][c];
+                lb1.setBackground(new java.awt.Color(204, 204, 255));
+                return ((Component) lb1);
+            }
+        }
+    
+    public javax.swing.JPanel getPanel(){
+        return jPanel1;
+    }
+    
+    public FileJPlane getObject(){
+        return this;
+    }
+    
+    public void setContent(int row, int col, String val){
+        JTextField j = (JTextField) _contentorg[row][col];
+        j.setText(val);
+        j.setBackground(Color.yellow);
+    }
 }

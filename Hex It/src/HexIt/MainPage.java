@@ -6,7 +6,12 @@
 package HexIt;
 import java.lang.Math;
 import java.util.StringTokenizer;
+import java.util.Vector;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JViewport;
 import javax.swing.filechooser.FileSystemView;
 
 /**
@@ -18,7 +23,6 @@ public class MainPage extends javax.swing.JFrame {
     /**
      * Creates new form MainPage
      */
-    FileJPlane file;
     String FrConv="Hex";
     String ToConv="ASCII";
     public MainPage() {
@@ -656,15 +660,36 @@ else
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTextField6.setEditable(false);
         jTextField6.setText("jTextField6");
 
         jTextField7.setText("jTextField7");
+        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField7ActionPerformed(evt);
+            }
+        });
 
         jTextField8.setText("jTextField8");
+        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField8ActionPerformed(evt);
+            }
+        });
 
         jTextField9.setText("jTextField9");
+        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField9ActionPerformed(evt);
+            }
+        });
 
         jTextField10.setText("jTextField10");
+        jTextField10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -915,7 +940,7 @@ else
 
         jMenu1.setText("File");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Open File");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1032,7 +1057,8 @@ else
                     File_Name = Tokens.nextToken();
                 System.out.println(File_Name);
                 
-                file=new FileJPlane(Path, this);
+                FileJPlane file=new FileJPlane(Path, this);
+                tabs.add(file);
                 this.jTabbedPane1.addTab(File_Name,file.getPanel());
                 this.jTabbedPane1.setSelectedComponent(file.getPanel());
                 // corret it...
@@ -1107,6 +1133,79 @@ else
                                           
 
     }//GEN-LAST:event_jTextArea4KeyReleased
+
+    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+        // TODO add your handling code here:
+        editCell("Ascii");
+    }//GEN-LAST:event_jTextField7ActionPerformed
+
+    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+        // TODO add your handling code here:
+        editCell("Hex");
+    }//GEN-LAST:event_jTextField8ActionPerformed
+
+    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+        // TODO add your handling code here:
+        editCell("Dec");
+    }//GEN-LAST:event_jTextField9ActionPerformed
+
+    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+        // TODO add your handling code here:
+        editCell("Bin");
+    }//GEN-LAST:event_jTextField10ActionPerformed
+    
+    public static String removeZero(String str){ 
+        int i = 0; 
+        while (i < str.length() && str.charAt(i) == '0') 
+            i++; 
+        StringBuffer sb = new StringBuffer(str); 
+        sb.replace(0, i, ""); 
+        return sb.toString();
+    }
+    
+    public void editCell(String chg){
+        String address = jTextField6.getText();
+        address = removeZero(address);
+        String val;
+        if(chg=="Ascii"){
+            val = jTextField7.getText();
+            StringBuffer sh = new StringBuffer();
+            char ch[] = val.toCharArray();
+            for(int i = 0; i < ch.length; i++) {
+                String hexString = Integer.toHexString(ch[i]);
+                sh.append(hexString);
+            }
+            val = sh.toString();
+        }
+        else if(chg == "Hex"){
+            val = jTextField8.getText();
+        }
+        else if(chg == "Dec"){
+            val = Integer.toHexString(Integer.parseInt(jTextField9.getText()));
+        }
+        else{
+            val = Integer.toHexString(Integer.parseInt(jTextField10.getText(), 2));
+        }
+        int row = Integer.parseInt(address, 16)/16;
+        int col = Integer.parseInt(address, 16)%16 + 1;
+        System.out.println(Integer.parseInt(address, 16));
+        System.out.println(row);
+        System.out.println(col);
+        JTextArea j = (JTextArea) tabs.get(jTabbedPane1.getSelectedIndex())._contentorg[row][col];
+        
+        j.setFont(new java.awt.Font("Courier New", 0, 14));
+        j.setBackground(new java.awt.Color(204, 204, 255));
+        j.setText(val);
+        JTextArea j1 = (JTextArea) tabs.get(jTabbedPane1.getSelectedIndex())._contentorg[row][17];
+        j1.setFont(new java.awt.Font("Courier New", 0, 14));
+        j1.setBackground(new java.awt.Color(204, 204, 255));
+        String chan = j1.getText().substring(0,col-1) + (char) Integer.parseInt(val, 16) + j1.getText().substring(col);
+        j1.setText(chan);
+        
+        FileJPlane file = tabs.get(jTabbedPane1.getSelectedIndex());
+        FileJPlane.TextBoxRender renderbox = file.new TextBoxRender();
+        file.tb.setDefaultRenderer(Object.class, renderbox);
+    }
     
     public void setCurrentAddressNormal(String address){
         jTextField6.setText(address);
@@ -1149,7 +1248,8 @@ else
         
     }
     
-
+    
+    private Vector<FileJPlane> tabs = new Vector<FileJPlane>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

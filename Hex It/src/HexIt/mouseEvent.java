@@ -27,7 +27,7 @@ import javax.swing.text.Utilities;
 public class mouseEvent extends MouseAdapter {
     
     private MainPage ui;
-    private Table tb;
+    public Table tb;
     private Object[][] content;
     private int sz,csz;
     private static int cp=0,rp=0,tp=0;
