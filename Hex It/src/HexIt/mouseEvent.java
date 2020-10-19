@@ -30,10 +30,12 @@ public class mouseEvent extends MouseAdapter {
     public Table tb;
     private Object[][] content;
     private int sz,csz;
+    FileJPlane file;
     private static int cp=0,rp=0,tp=0;
     private DefaultHighlighter.DefaultHighlightPainter yellowPainter = new DefaultHighlighter.DefaultHighlightPainter(Color.yellow);
-    mouseEvent(Table t, Object[][] con, MainPage ui, int sz, int csz){
+    mouseEvent(Table t, Object[][] con, MainPage ui, int sz, int csz,FileJPlane file){
         this.tb = t;
+        this.file=file;
         this.content = con;
         this.ui = ui;
         this.sz = sz;
@@ -359,7 +361,7 @@ public class mouseEvent extends MouseAdapter {
         if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
             boolean includeSpacing = false;
             Rectangle rect = tb.getCellRect(row, col, includeSpacing);
-            PopUp pm = new PopUp(ui,row,col,tb,content,sz,csz);
+            PopUp pm = new PopUp(ui,row,col,tb,content,sz,csz,file);
             pm.show(e.getComponent(), rect.x+10, rect.y+20);
         }
     }

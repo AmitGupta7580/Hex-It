@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package HexIt;
+import java. util. *;
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
@@ -50,6 +53,8 @@ public final class FileJPlane extends javax.swing.JFrame {
     private int csz = 0;
     public Object[][] _contentorg;
     private Object[][] _content = new Object[100000][];
+    private int undoRedoPointer = -1;
+       private Stack<Command> commandStack = new Stack<>();
     public FileJPlane(String Path, MainPage ui) {
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.p = Path;
@@ -197,16 +202,94 @@ public final class FileJPlane extends javax.swing.JFrame {
         JTextField j = new JTextField();
         j.setEditable(false);
         j.setBackground(Color.yellow);
-        DefaultCellEditor doubleclick = new DefaultCellEditor(j);
+       /* DefaultCellEditor doubleclick = new DefaultCellEditor(j);
         doubleclick.setClickCountToStart(2);
 
         //set the editor as default on every column
         for (int i = 0; i < tb.getColumnCount(); i++) {
             tb.setDefaultEditor(tb.getColumnClass(i), doubleclick);
-        } 
-        mouseEvent m = new mouseEvent(tb, _contentorg, ui,sz,csz);
+        } */
+        mouseEvent m = new mouseEvent(tb, _contentorg, ui,sz,csz,this);
         tb.addMouseListener(m);
+        tb.getModel().addTableModelListener(new TableModelListener() {
+            public void tableChanged(TableModelEvent e) {
+                
+            }
+        });
     }
+    public void setnxt(Command c){
+                StringBuilder ss=new StringBuilder();
+                for(int i=c.srow;i<=c.erow;i++){
+                    for(int j=0;j<18;j++){
+                        JTextArea jtxt = (JTextArea) _contentorg[i][j];
+                        ss.append(jtxt.getText()+" ");
+                    }
+                }
+        c.snxt=ss.toString();
+    }
+    public void setprv(Command c){
+                StringBuilder ss=new StringBuilder();
+                for(int i=c.srow;i<=c.erow;i++){
+                    for(int j=0;j<18;j++){
+                        JTextArea jtxt = (JTextArea) _contentorg[i][j];
+                        ss.append(jtxt.getText()+" ");
+                    }
+                }
+        c.sprev=ss.toString();
+    }
+    public void insertCommand(Command c)
+{   
+    deleteElementsAfterPointer(undoRedoPointer);
+    commandStack.push(c);
+    undoRedoPointer++;
+}
+    public void deleteElementsAfterPointer(int undoRedoPointer)
+{
+    if(commandStack.size()<1)return;
+    for(int i = commandStack.size()-1; i > undoRedoPointer; i--)
+    {
+        commandStack.remove(i);
+    }
+}
+     public void undo()
+{
+    Command command = commandStack.get(undoRedoPointer);
+    UnExecute(command);
+    undoRedoPointer--;
+}
+
+public void redo()
+{
+    if(undoRedoPointer == commandStack.size() - 1)
+        return;
+    undoRedoPointer++;
+    Command command = commandStack.get(undoRedoPointer);
+    Execute(command);
+}
+private void Execute(Command c){
+    StringTokenizer st1 = new StringTokenizer(c.snxt, " "); 
+     for(int i=c.srow;i<=c.erow;i++){
+                    for(int j=0;j<18;j++){
+                        JTextArea jtxt = (JTextArea) _contentorg[i][j];
+                        if(st1.hasMoreTokens())
+                        jtxt.setText(st1.nextToken());
+                        jtxt.setBackground(Color.yellow);
+                    }
+                }
+    
+}
+private void UnExecute(Command c){
+    StringTokenizer st1 = new StringTokenizer(c.sprev, " "); 
+     for(int i=c.srow;i<=c.erow;i++){
+                    for(int j=0;j<18;j++){
+                        JTextArea jtxt = (JTextArea) _contentorg[i][j];
+                        if(st1.hasMoreTokens())
+                        jtxt.setText(st1.nextToken());
+                        jtxt.setBackground(Color.yellow);
+                    }
+                }
+    
+}
     
     class TextBoxRender implements TableCellRenderer {
             @Override

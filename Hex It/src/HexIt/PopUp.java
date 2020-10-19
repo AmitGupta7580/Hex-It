@@ -31,12 +31,14 @@ public class PopUp extends JPopupMenu{
     private Object[][] content;
     private int row,col,sz,csz;
     private Table tb;
+    FileJPlane file;
     private MainPage ui;
     private javax.swing.JMenuItem insetitm,deleteitm,edtitm,sendConvter,sendCalc;
     
-    PopUp(MainPage ui, int row, int col, Table tb, Object[][] content, int sz, int csz){
+    PopUp(MainPage ui, int row, int col, Table tb, Object[][] content, int sz, int csz,FileJPlane file){
         this.ui = ui;
         this.row = row;
+        this.file=file;
         this.sz = sz;
         this.csz = csz;
         this.col = col;
@@ -111,9 +113,10 @@ public class PopUp extends JPopupMenu{
         edtitm.setSize(80, 25);
         edtitm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Command c=new Command(row,row);
+                file.setprv(c);
                 System.out.println("Edit cell : " + Integer.toString(row) + Integer.toString(col));
                 if((col==0)||(col==17)){
-            
                 }
                 else{
                     JOptionPane jop = new JOptionPane();
@@ -131,6 +134,8 @@ public class PopUp extends JPopupMenu{
                         js.setText(chan);
                     }
                 }
+                file.setnxt(c);
+                file.insertCommand(c);
             }
         });
         sendConvter = new javax.swing.JMenuItem();
