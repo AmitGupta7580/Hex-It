@@ -46,7 +46,10 @@ public final class FileJPlane extends javax.swing.JFrame {
     
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private String p;    
+    public String p;  
+    public String [][] hexeachbit= new String[100000][];
+    public int modcount=0;
+    public String filename="";
     private MainPage ui;
     public Table tb = new Table();
     private int sz=0;
@@ -55,10 +58,11 @@ public final class FileJPlane extends javax.swing.JFrame {
     private Object[][] _content = new Object[100000][];
     private int undoRedoPointer = -1;
        private Stack<Command> commandStack = new Stack<>();
-    public FileJPlane(String Path, MainPage ui) {
+    public FileJPlane(String filename,String Path, MainPage ui) {
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.p = Path;
         this.ui = ui;
+        this.filename=filename;
         try {
             File f = new File(p);
             Path path = Paths.get(p);
@@ -68,6 +72,7 @@ public final class FileJPlane extends javax.swing.JFrame {
             while ((value = is.read()) != -1) {
                 int bytesCounter =1;
                 Object[] con = new Object[18];
+                String[] bit =new String[16];
                 String pad = "";
                 for(int i=0 ; i < 7 -Integer.toHexString(sz).toUpperCase().length();i++) {
                     pad += "0";
@@ -80,6 +85,7 @@ public final class FileJPlane extends javax.swing.JFrame {
                 jin.setFont(new java.awt.Font("Courier New", 0, 14));
                 jin.setBackground(new java.awt.Color(204, 204, 255));
                 con[bytesCounter] = jin;
+                bit[bytesCounter-1]=String.format("%02X",value);
                 if (!Character.isISOControl(value)) {
                     sbText.append((char)value);
                 }else {
@@ -93,6 +99,7 @@ public final class FileJPlane extends javax.swing.JFrame {
                     j.setFont(new java.awt.Font("Courier New", 0, 14));
                     j.setBackground(new java.awt.Color(204, 204, 255));
                     con[bytesCounter] = j;
+                    bit[bytesCounter-1]=String.format("%02X",value);
 
                     //If the chracater is not convertable, just print a dot symbol "."
                     if (!Character.isISOControl(value)) {
@@ -127,6 +134,7 @@ public final class FileJPlane extends javax.swing.JFrame {
                     }
                 }
                 _content[this.sz] = con;
+                hexeachbit[this.sz]=bit;
                 this.sz++;
             }
             //System.out.print(sbResult);
@@ -256,6 +264,7 @@ public final class FileJPlane extends javax.swing.JFrame {
     Command command = commandStack.get(undoRedoPointer);
     UnExecute(command);
     undoRedoPointer--;
+    
 }
 
 public void redo()
@@ -268,27 +277,53 @@ public void redo()
 }
 private void Execute(Command c){
     StringTokenizer st1 = new StringTokenizer(c.snxt, " "); 
+    String ch="";
      for(int i=c.srow;i<=c.erow;i++){
                     for(int j=0;j<18;j++){
                         JTextArea jtxt = (JTextArea) _contentorg[i][j];
+                        String str=jtxt.getText();
                         if(st1.hasMoreTokens())
-                        jtxt.setText(st1.nextToken());
+                        {ch=st1.nextToken();
+                            jtxt.setText(ch);
+                        }
+                        if(!(ch.equals(str))&&(j<17))
+                        {
+                            if(ch.equals(hexeachbit[i][j-1]))
+                                modcount--;
+                            else if(str.equals(hexeachbit[i][j-1]))
+                                modcount++;
+                        }
                         jtxt.setBackground(Color.yellow);
+                        
+                        
                     }
                 }
+     ui.changeTabName(this);
     
 }
 private void UnExecute(Command c){
     StringTokenizer st1 = new StringTokenizer(c.sprev, " "); 
+    String ch="";
      for(int i=c.srow;i<=c.erow;i++){
                     for(int j=0;j<18;j++){
                         JTextArea jtxt = (JTextArea) _contentorg[i][j];
+                        String str=jtxt.getText();
                         if(st1.hasMoreTokens())
-                        jtxt.setText(st1.nextToken());
+                        {ch=st1.nextToken();
+                            jtxt.setText(ch);
+                        }
+                        if(!(ch.equals(str))&&(j<17))
+                        {
+                            if(ch.equals(hexeachbit[i][j-1]))
+                                modcount--;
+                            else if(str.equals(hexeachbit[i][j-1]))
+                                modcount++;
+                        }
                         jtxt.setBackground(Color.yellow);
+                        
                     }
                 }
-    
+     ui.changeTabName(this);
 }
     
     class TextBoxRender implements TableCellRenderer {
@@ -319,3 +354,12 @@ private void UnExecute(Command c){
         j.setBackground(Color.yellow);
     }
 }
+
+
+
+
+
+
+
+
+

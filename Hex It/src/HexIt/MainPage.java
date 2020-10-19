@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package HexIt;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.Math;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -340,6 +344,7 @@ else
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem5 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -404,10 +409,14 @@ else
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+
+        jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -956,7 +965,7 @@ else
             }
         });
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setText("Open File");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -965,6 +974,24 @@ else
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem4.setText("Save");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem6.setText("Save As");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -972,7 +999,7 @@ else
 
         jMenu3.setText("Tools");
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem2.setText("Undo");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -981,7 +1008,7 @@ else
         });
         jMenu3.add(jMenuItem2);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem3.setText("Redo");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1077,7 +1104,33 @@ else
   
            
     }//GEN-LAST:event_jComboBox4ActionPerformed
+public void changeTabName(FileJPlane obj)
+{if(obj.modcount>0)
+    this.jTabbedPane1.setTitleAt(this.jTabbedPane1.getSelectedIndex(),"*"+obj.filename);
+else
+    this.jTabbedPane1.setTitleAt(this.jTabbedPane1.getSelectedIndex(),obj.filename);
+}
 
+
+private void openFile(String Path)
+{StringTokenizer Tokens = new StringTokenizer(Path, "\\"); 
+                String File_Name = null;
+                while (Tokens.hasMoreTokens()) 
+                    File_Name = Tokens.nextToken();
+                System.out.println(File_Name);
+                
+                FileJPlane file=new FileJPlane(File_Name,Path, this);
+                tabs.add(file);
+                
+                
+                this.jTabbedPane1.addTab(file.filename,file.getPanel());
+                
+                this.jTabbedPane1.setSelectedComponent(file.getPanel());
+                
+                // corret it...
+                jTextField1.setText(File_Name);
+                //  please.....
+}
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         System.out.println("File is opening");
@@ -1089,18 +1142,8 @@ else
                 // set the label to the path of the selected file 
                 String Path =  j.getSelectedFile().getAbsolutePath();
                 System.out.println(Path);
-                StringTokenizer Tokens = new StringTokenizer(Path, "\\"); 
-                String File_Name = null;
-                while (Tokens.hasMoreTokens()) 
-                    File_Name = Tokens.nextToken();
-                System.out.println(File_Name);
+                openFile(Path);
                 
-                FileJPlane file=new FileJPlane(Path, this);
-                tabs.add(file);
-                this.jTabbedPane1.addTab(File_Name,file.getPanel());
-                this.jTabbedPane1.setSelectedComponent(file.getPanel());
-                jTextField1.setText(File_Name);
-                //  please.....
             } 
             else
                 System.out.println("the user cancelled the operation"); 
@@ -1214,6 +1257,89 @@ else
         FileJPlane file = tabs.get(jTabbedPane1.getSelectedIndex());
         file.redo();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        System.out.println("file saving");
+     FileJPlane obj=tabs.get(this.jTabbedPane1.getSelectedIndex());
+     String path=obj.p;
+     int k=0;
+     int len=obj.hexeachbit.length;
+     Object[][] content=obj._contentorg;
+     try{
+     FileOutputStream os = new FileOutputStream(path);
+     DataOutputStream ds = new DataOutputStream(os);
+     for(int i=0;i<len;i++)
+     {
+         for(int j=1;j<=16;j++)
+         {if(content[i][j]==null)
+         {k=1;break;}
+             JTextArea jt = (JTextArea) content[i][j];  
+             String mod = jt.getText();
+             
+                 ds.write((byte)((Character.digit(mod.charAt(0), 16)<<4)+Character.digit(mod.charAt(1), 16)));
+             }
+         if(k==1)break;
+         }
+     
+     ds.close();
+     os.close();
+     
+     }
+     catch(IOException e)
+     {
+         System.out.println(e);
+     }
+    obj.modcount=0;
+    changeTabName(obj);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        System.out.println("file saving");
+     FileJPlane obj=tabs.get(this.jTabbedPane1.getSelectedIndex());
+    
+     int k=0;
+     int len=obj.hexeachbit.length;
+     Object[][] content=obj._contentorg;
+     try{
+          JFileChooser js = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+         
+            int r = js.showSaveDialog(null); 
+            if (r == JFileChooser.APPROVE_OPTION){ 
+             
+                // set the label to the path of the selected file 
+                String Path =  js.getSelectedFile().getAbsolutePath();
+                System.out.println(Path);
+                File file= new File(Path);
+                boolean result = file.createNewFile();  //creates a new file  
+if(result)      // test if successfully created a new file  
+{  
+System.out.println("file created "+file.getCanonicalPath()); //returns the path string  
+     FileOutputStream os = new FileOutputStream(file);
+     DataOutputStream ds = new DataOutputStream(os);
+     for(int i=0;i<len;i++)
+     {
+         for(int j=1;j<=16;j++)
+         {if(content[i][j]==null)
+         {k=1;break;}
+             JTextArea jt = (JTextArea) content[i][j];  
+             String mod = jt.getText();
+             
+                 ds.write((byte)((Character.digit(mod.charAt(0), 16)<<4)+Character.digit(mod.charAt(1), 16)));
+             }
+         if(k==1)break;
+         }
+     
+     ds.close();
+     os.close();
+        openFile(Path);}
+     
+     }}
+     catch(IOException e)
+     {
+         System.out.println(e);
+     }
+    
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
     
     public static String removeZero(String str){ 
         int i = 0; 
@@ -1347,6 +1473,9 @@ else
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

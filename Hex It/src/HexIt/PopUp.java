@@ -31,7 +31,7 @@ public class PopUp extends JPopupMenu{
     private Object[][] content;
     private int row,col,sz,csz;
     private Table tb;
-    FileJPlane file;
+    public FileJPlane file;
     private MainPage ui;
     private javax.swing.JMenuItem insetitm,deleteitm,edtitm,sendConvter,sendCalc;
     
@@ -124,6 +124,7 @@ public class PopUp extends JPopupMenu{
                     if(inputvalid(change_value)){
                         JTextArea j = (JTextArea) content[row][col];                        
                         j.setFont(new java.awt.Font("Courier New", 0, 14));
+                        String mod = j.getText();
                         j.setBackground(new java.awt.Color(204, 204, 255));
                         JTextArea js = (JTextArea) content[row][17];                        
                         js.setFont(new java.awt.Font("Courier New", 0, 14));
@@ -132,6 +133,7 @@ public class PopUp extends JPopupMenu{
                         String chan = prev.substring(0,col-1) + (char) Integer.parseInt(change_value, 16) + prev.substring(col);
                         j.setText(change_value);
                         js.setText(chan);
+                        Save.ammend(file,ui,row, col, change_value,mod);
                     }
                 }
                 file.setnxt(c);
@@ -196,3 +198,5 @@ public class PopUp extends JPopupMenu{
     }
     
 }
+
+
