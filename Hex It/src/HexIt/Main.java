@@ -17,7 +17,7 @@ class Main{
     public static void main(String args[]) {
         try {
             // Set cross-platform Java L&F (also called "Metal")
-        UIManager.setLookAndFeel(
+            UIManager.setLookAndFeel(
             UIManager.getCrossPlatformLookAndFeelClassName());
         } 
         catch (UnsupportedLookAndFeelException e) {
@@ -32,8 +32,13 @@ class Main{
         catch (IllegalAccessException e) {
        // handle exception
         }
-        MainPage Ui = new MainPage();
-        Ui.setVisible(true);
-        
+        if(args.length > 0){
+            MainPage Ui = new MainPage(args[0]);
+            Ui.setVisible(true);
+        }
+        else{
+            MainPage Ui = new MainPage();
+            Ui.setVisible(true);
+        }
     }
 }

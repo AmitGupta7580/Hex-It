@@ -225,6 +225,110 @@ public final class FileJPlane extends javax.swing.JFrame {
             }
         });
     }
+    
+    FileJPlane(int type, MainPage ui){
+        this.ui = ui;
+        if(type==0){
+            _contentorg = new Object[40][];
+            for(int i = 0 ;i < 40 ; i++){
+                Object[] con = new Object[18];
+                String pad = "";
+                for(int k=0 ; k < 7 -Integer.toHexString(sz).toUpperCase().length();k++) {
+                    pad += "0";
+                }
+                JTextArea jp = new JTextArea(pad+Integer.toHexString(sz).toUpperCase()+"0");
+                jp.setFont(new java.awt.Font("Courier New", 0, 14));
+                jp.setBackground(new java.awt.Color(204, 204, 255));
+                con[0] = jp;
+                for(int j = 1;j < 17 ; j ++){
+                    JTextArea jpt = new JTextArea("00");
+                    jpt.setFont(new java.awt.Font("Courier New", 0, 14));
+                    jpt.setBackground(new java.awt.Color(204, 204, 255));
+                    con[j] = jpt;
+                }
+                JTextArea j = new JTextArea("................");
+                j.setFont(new java.awt.Font("Courier New", 0, 14));
+                j.setBackground(new java.awt.Color(204, 204, 255));
+                con[17] = j;
+                _content[this.sz] = con;
+                this.sz++;
+            }
+            _contentorg = new Object[sz][];
+            jPanel1 = new javax.swing.JPanel();
+            jScrollPane2 = new javax.swing.JScrollPane();
+            for(int i=0 ;i<this.sz; i++){
+                _contentorg[i] = _content[i];
+                //System.out.println(_content[i][17]);
+            }
+            tb.setFont(new java.awt.Font("Courier New", 0, 14));
+            tb.setModel(new javax.swing.table.DefaultTableModel(
+                _contentorg,
+                new String [] {
+                    "", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "0A", "0B", "0C", "0D", "0E", "0F", "ASCII"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        
+            tb.setDefaultRenderer(Object.class, new TextBoxRender());
+            //tb.getColumn("ASCII").setCellRenderer(new TextBoxRender(0,0,0));
+            tb.setBackground(new java.awt.Color(204, 204, 255));
+            tb.setRowHeight(20);
+            tb.setShowHorizontalLines(false);
+            tb.setShowVerticalLines(false);
+            int[] wid = new int[18];
+            wid[0] = 70;
+            for(int i= 1;i < wid.length-1 ; i++){
+                wid[i] = 5;
+            }
+            wid[17] = 200;
+            tb.setColumnWidths(wid);
+            jScrollPane2.setViewportView(tb);
+
+            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+            jPanel1.setLayout(jPanel1Layout);
+            jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
+            );
+            jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+            );
+
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            );
+        
+            pack();
+            JTextField j = new JTextField();
+            j.setEditable(false);
+            j.setBackground(Color.yellow);
+            DefaultCellEditor doubleclick = new DefaultCellEditor(j);
+            doubleclick.setClickCountToStart(2);
+
+            //set the editor as default on every column
+            for (int i = 0; i < tb.getColumnCount(); i++) {
+                tb.setDefaultEditor(tb.getColumnClass(i), doubleclick);
+            } 
+            mouseEvent m = new mouseEvent(tb, _contentorg, ui,sz,csz,this);
+            tb.addMouseListener(m);
+        }
+    }
+    
     public void setnxt(Command c){
                 StringBuilder ss=new StringBuilder();
                 for(int i=c.srow;i<=c.erow;i++){

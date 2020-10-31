@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package HexIt;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,7 +15,9 @@ import java.io.IOException;
 import java.lang.Math;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -29,9 +35,80 @@ public class MainPage extends javax.swing.JFrame {
      */
     String FrConv="Hex";
     String ToConv="ASCII";
+    
+    public MainPage(String defPath){
+        initComponents();
+        jTextArea2.setEditable(false);
+        System.out.println(defPath);
+        StringTokenizer Tokens = new StringTokenizer(defPath, "\\"); 
+        String File_Name = null;
+        while (Tokens.hasMoreTokens()) 
+        File_Name = Tokens.nextToken();
+        System.out.println(File_Name);
+        
+        FileJPlane def = new FileJPlane(File_Name, defPath, this);
+        tabs.add(def);
+        String title = File_Name;
+        this.jTabbedPane1.addTab(File_Name,def.getPanel());
+        int index = this.jTabbedPane1.indexOfTab(title);
+        JPanel pnlTab = new JPanel(new GridBagLayout());
+        pnlTab.setOpaque(false);
+        JLabel lblTitle = new JLabel("  " + title + "     ");
+        JButton btnClose = new JButton("x");
+        btnClose.setSize(2, 2);
+        pnlTab.add(lblTitle);
+        pnlTab.add(btnClose);
+        this.jTabbedPane1.setTabComponentAt(index, pnlTab);
+
+        btnClose.addActionListener(closeTab(title));
+        this.jTabbedPane1.setSelectedComponent(def.getPanel());
+        jTextField1.setText(File_Name);
+        this.jTabbedPane1.setSelectedIndex(0);
+    }
+    
     public MainPage() {
         initComponents();
         jTextArea2.setEditable(false);
+        FileJPlane def = new FileJPlane(0, this);
+        tabs.add(def);
+        String title = "untitled";
+        this.jTabbedPane1.addTab(title, def.getPanel());
+        int index = this.jTabbedPane1.indexOfTab(title);
+        JPanel pnlTab = new JPanel(new GridBagLayout());
+        pnlTab.setOpaque(false);
+        JLabel lblTitle = new JLabel("  " + title + "     ");
+        JButton btnClose = new JButton("x");
+        btnClose.setSize(2, 2);
+        pnlTab.add(lblTitle);
+        pnlTab.add(btnClose);
+        this.jTabbedPane1.setTabComponentAt(index, pnlTab);
+
+        btnClose.addActionListener(closeTab(title));
+        this.jTabbedPane1.setSelectedComponent(def.getPanel());
+        jTextField1.setText("untitled");
+        // System.out.println(Integer.parseInt(jTextField3.getText(), 16)/16);
+        // System.out.println(Integer.parseInt(jTextField3.getText(), 16)%16+1);
+        this.jTabbedPane1.setSelectedIndex(0);
+    }
+    
+    public ActionListener closeTab(String t){
+        class AC implements ActionListener {
+            private javax.swing.JTabbedPane j;
+            private String title;
+            public AC(javax.swing.JTabbedPane j, String t){
+                super();
+                this.j = j;
+                this.title = t;
+            }
+            public void actionPerformed(ActionEvent evt) {
+                int index = j.indexOfTab(title);
+                    if (index >= 0) {
+                        j.removeTabAt(index);
+                    }
+            }
+        }
+        ActionListener a = new AC(this.jTabbedPane1, t);
+        return a;
     }
     
     public static String asciitohex(String str)
@@ -1030,24 +1107,33 @@ else
 }
 
 
-private void openFile(String Path)
-{StringTokenizer Tokens = new StringTokenizer(Path, "\\"); 
-                String File_Name = null;
-                while (Tokens.hasMoreTokens()) 
-                    File_Name = Tokens.nextToken();
-                System.out.println(File_Name);
+private void openFile(String Path){
+    StringTokenizer Tokens = new StringTokenizer(Path, "\\"); 
+    String File_Name = null;
+    while (Tokens.hasMoreTokens())
+    File_Name = Tokens.nextToken();
+    System.out.println(File_Name);
+    FileJPlane file=new FileJPlane(File_Name,Path, this);
+    tabs.add(file);
+    
+    String title = file.filename;
+        this.jTabbedPane1.addTab(title, file.getPanel());
+        int index = this.jTabbedPane1.indexOfTab(title);
+        JPanel pnlTab = new JPanel(new GridBagLayout());
+        pnlTab.setOpaque(false);
+        JLabel lblTitle = new JLabel("  " + title + "     ");
+        JButton btnClose = new JButton("x");
+        pnlTab.add(lblTitle);
+        pnlTab.add(btnClose);
+
+        this.jTabbedPane1.setTabComponentAt(index, pnlTab);
+
+        btnClose.addActionListener(closeTab(title));
+    this.jTabbedPane1.setSelectedComponent(file.getPanel());
                 
-                FileJPlane file=new FileJPlane(File_Name,Path, this);
-                tabs.add(file);
-                
-                
-                this.jTabbedPane1.addTab(file.filename,file.getPanel());
-                
-                this.jTabbedPane1.setSelectedComponent(file.getPanel());
-                
-                // corret it...
-                jTextField1.setText(File_Name);
-                //  please.....
+    // corret it...
+    jTextField1.setText(File_Name);
+    //  please.....
 }
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -1186,16 +1272,15 @@ else
      try{
      FileOutputStream os = new FileOutputStream(path);
      DataOutputStream ds = new DataOutputStream(os);
-     for(int i=0;i<len;i++)
-     {
-         for(int j=1;j<=16;j++)
-         {if(content[i][j]==null)
-         {k=1;break;}
-             JTextArea jt = (JTextArea) content[i][j];  
-             String mod = jt.getText();
+     for(int i=0;i<len;i++){
+         for(int j=1;j<=16;j++){
+            if(content[i][j]==null){
+                k=1;break;}
+                JTextArea jt = (JTextArea) content[i][j];  
+                String mod = jt.getText();
              
-                 ds.write((byte)((Character.digit(mod.charAt(0), 16)<<4)+Character.digit(mod.charAt(1), 16)));
-             }
+                ds.write((byte)((Character.digit(mod.charAt(0), 16)<<4)+Character.digit(mod.charAt(1), 16)));
+            }
          if(k==1)break;
          }
      
@@ -1371,6 +1456,10 @@ System.out.println("file created "+file.getCanonicalPath()); //returns the path 
             jComboBox3.setSelectedItem("ASCII");
         }
         
+    }
+    
+    public String getAddress(){
+        return jTextField3.getText();
     }
     
     
