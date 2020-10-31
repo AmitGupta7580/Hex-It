@@ -33,7 +33,7 @@ public class PopUp extends JPopupMenu{
     private Table tb;
     public FileJPlane file;
     private MainPage ui;
-    private javax.swing.JMenuItem insetitm,deleteitm,edtitm,sendConvter,sendCalc;
+    private javax.swing.JMenuItem insetitm,deleteitm,edtitm,sendConvter,sendCalc,sendCalc2;
     
     PopUp(MainPage ui, int row, int col, Table tb, Object[][] content, int sz, int csz,FileJPlane file){
         this.ui = ui;
@@ -157,7 +157,7 @@ public class PopUp extends JPopupMenu{
             }
         });
         sendCalc = new javax.swing.JMenuItem();
-        sendCalc.setText("Send to Calculater");
+        sendCalc.setText("Send to Calculater(1)");
         sendCalc.setSize(80, 25);
         sendCalc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,16 +172,33 @@ public class PopUp extends JPopupMenu{
                 }
             }
         });
+        sendCalc2 = new javax.swing.JMenuItem();
+        sendCalc2.setText("Send to Calculater(2)");
+        sendCalc2.setSize(80, 25);
+        sendCalc2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                System.out.println("send to calc : " + Integer.toString(row) + Integer.toString(col));
+                if((col==0)||(col==17)){
+                    JTextArea js = (JTextArea) content[row][17];
+                    ui.flbytesendcalculater2(js.getText(),1);
+                }
+                else{
+                    JTextArea j = (JTextArea) content[row][col];
+                    ui.flbytesendcalculater2(j.getText(),0);
+                }
+            }
+        });
         add(edtitm);
         addSeparator();
-        add(insetitm);
-        addSeparator();
-        add(deleteitm);
-        addSeparator();
+//        add(insetitm);
+//        addSeparator();
+//        add(deleteitm);
+//        addSeparator();
         add(sendConvter);
         addSeparator();
         add(sendCalc);
         addSeparator();
+        add(sendCalc2);
     }
     
     public boolean inputvalid(String txt){

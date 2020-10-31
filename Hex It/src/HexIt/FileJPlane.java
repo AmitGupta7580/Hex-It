@@ -230,7 +230,7 @@ public final class FileJPlane extends javax.swing.JFrame {
                 for(int i=c.srow;i<=c.erow;i++){
                     for(int j=0;j<18;j++){
                         JTextArea jtxt = (JTextArea) _contentorg[i][j];
-                        ss.append(jtxt.getText()+" ");
+                        ss.append(jtxt.getText()+"$");
                     }
                 }
         c.snxt=ss.toString();
@@ -240,7 +240,7 @@ public final class FileJPlane extends javax.swing.JFrame {
                 for(int i=c.srow;i<=c.erow;i++){
                     for(int j=0;j<18;j++){
                         JTextArea jtxt = (JTextArea) _contentorg[i][j];
-                        ss.append(jtxt.getText()+" ");
+                        ss.append(jtxt.getText()+"$");
                     }
                 }
         c.sprev=ss.toString();
@@ -276,7 +276,7 @@ public void redo()
     Execute(command);
 }
 private void Execute(Command c){
-    StringTokenizer st1 = new StringTokenizer(c.snxt, " "); 
+    StringTokenizer st1 = new StringTokenizer(c.snxt, "$"); 
     String ch="";
      for(int i=c.srow;i<=c.erow;i++){
                     for(int j=0;j<18;j++){
@@ -302,7 +302,7 @@ private void Execute(Command c){
     
 }
 private void UnExecute(Command c){
-    StringTokenizer st1 = new StringTokenizer(c.sprev, " "); 
+    StringTokenizer st1 = new StringTokenizer(c.sprev, "$"); 
     String ch="";
      for(int i=c.srow;i<=c.erow;i++){
                     for(int j=0;j<18;j++){

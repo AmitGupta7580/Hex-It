@@ -76,6 +76,7 @@ public class mouseEvent extends MouseAdapter {
             JTextArea s2 = (JTextArea) content[row][col];
             Highlighter higs2 = s2.getHighlighter();
             try {
+                
                 higs1.addHighlight(col-1, col, yellowPainter);
                 higs2.addHighlight(0, 2, yellowPainter);
             } catch (BadLocationException ex) {
